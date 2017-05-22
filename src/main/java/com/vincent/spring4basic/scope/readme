@@ -1,0 +1,7 @@
+spring通过scope来描述如何新建bean的实例
+1、Singleton：一个spring容器中只有一个bean的实例，默认就是这样的配置
+2、Protptype：每次调用新建一个bean的实例
+3、Request：web项目中，给每一个http request新建一个bean的实例
+4、session：web项目中，给每一个http session新建一个bean的实例
+5、GlobalSession
+6、还有一个是使用@StepScope
