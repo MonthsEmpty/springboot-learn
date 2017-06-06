@@ -1,7 +1,9 @@
 package com.vincent.springmvc;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -13,9 +15,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan("com.vincent.springmvc")
 public class MyMvcConfig extends WebMvcConfigurerAdapter {
 
+    @Bean //配置拦截器的bean
+    public DemoInterceptor demoInterceptor(){
+        return new DemoInterceptor();
+    }
+
     //addResourceLocations指的是文件放置的目录，addResourceHandler指的是对外暴露的访问路径
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("").addResourceLocations("");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) { //重写addInterceptors方法，注册拦截器
+        registry.addInterceptor(demoInterceptor());
     }
 }
