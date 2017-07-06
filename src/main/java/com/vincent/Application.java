@@ -1,10 +1,15 @@
 package com.vincent;
 
+import com.vincent.auth.AuthHelper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Administrator on 2017/5/10.
@@ -26,8 +31,21 @@ public class Application {
     private Integer age;
 
     @RequestMapping("/")
-    String index(){
+    String index() {
         return "Hello spring boot,i'm " + name + ",and i'm " + age + " years old!";
+    }
+
+    @RequestMapping("/login")
+    @ResponseBody
+    public String TestLogin(HttpServletRequest request, HttpServletResponse response) {
+        AuthHelper.setCookie(response,"vincent", "123", "test", 8 * 60 * 60 * 1000, AuthHelper.base64Security, "asdfads");
+        return "asdf";
+    }
+
+    @RequestMapping("/testAftetLogin")
+    @ResponseBody
+    public String testAftetLogin(){
+        return "testAftetLogin";
     }
 
     public static void main(String[] args) {
